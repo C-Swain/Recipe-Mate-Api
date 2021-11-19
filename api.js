@@ -1,3 +1,11 @@
+const { Pool } = require("pg");
+const pool = new Pool({
+  user: 'development',
+  password: 'development',
+  host: 'localhost',
+  database: 'recipe_development'
+});
+
 const inMemoryRecipes = [
   {
     id: 123,
@@ -29,7 +37,7 @@ const inMemoryRecipes = [
     name: "Peanut-butter and jam sandwich",
     category: "breakfast",
     description: "very tasty",
-    ingredients: " bread, peanut-butter , jam"
+    ingredients: " bread, peanut-butter , jam",
     steps: "peanut butter jelly time",
     servings: "100 people",
     time: 5,
@@ -38,9 +46,12 @@ const inMemoryRecipes = [
 ];
 
 const getAllRecipes = async (request, response) => {
-  response.status(200).json(inMemoryRecipes);
+    pool.query('SELECT * FROM Recipes;', (error, results) => {
+      response.status(200).json(results.rows);
+    });
 };
 
+// REPLACE OTHERS WITH QUERIES
 const getRecipeById = (request, response) => {
   response.status(200).json(inMemoryRecipes[0]);
 };

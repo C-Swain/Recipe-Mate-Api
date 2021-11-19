@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const port = 5000;
@@ -6,7 +5,6 @@ const port = 5000;
 app.use(express.json());
 
 const api = require('./api');
-// const { getAllRecipes,getRecipeById, addRecipe,updateRecipe, deleteRecipe} from a[]
 
 app.get('/Recipes/', api.getAllRecipes);
 app.get('/Recipes/:id', api.getRecipeById);
