@@ -1,18 +1,17 @@
 {
-  'name': 'recipe-mate-api',
-  'version': '1.0.0',
-  'description': 'an api for recipes',
-  'main': 'app.js',
-  'scripts': {
-    'start': 'nodemon app.js'
+  "name": "recipe-mate-api",
+  "version": "1.0.0",
+  "description": "an api for recipes",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
   },
-  'author': 'Ana Carolina K, Gloria Joan Lai & Catherine Swain',
-  'license': 'ISC',
-  'dependencies': {
-    'express': '^4.17.1'
+  "author": "Ana Carolina K, Gloria Joan Lai & Catherine Swain",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
-    "pg": "^8.7.1"
+    "nodemon": "^2.0.15"
   }
 }
