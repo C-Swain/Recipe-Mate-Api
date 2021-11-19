@@ -29,7 +29,7 @@ const inMemoryRecipes = [
     name: 'Peanut-butter and jam sandwich',
     category: 'breakfast',
     description: 'very tasty',
-    ingredients: ' bread, peanut-butter , jam'
+    ingredients: ' bread, peanut-butter , jam',
     steps: 'peanut butter jelly time',
     servings: '100 people',
     time: 5,
