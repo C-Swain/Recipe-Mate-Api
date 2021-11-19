@@ -1,3 +1,5 @@
+--DROP DATABASE IF EXISTS recipes_development;
+--CREATE DATABASE IF EXISTS recipes_development;
 
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS categories CASCADE;

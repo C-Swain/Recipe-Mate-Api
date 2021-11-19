@@ -1,3 +1,11 @@
+const { Pool } = require("pg");
+const pool = new Pool({
+  user: 'development',
+  password: 'development',
+  host: 'localhost',
+  database: 'recipe_development'
+});
+
 const inMemoryRecipes = [
   {
     id: 123,
@@ -38,9 +46,12 @@ const inMemoryRecipes = [
 ];
 
 const getAllRecipes = async (request, response) => {
-  response.status(200).json(inMemoryRecipes);
+    pool.query('SELECT * FROM Recipes;', (error, results) => {
+      response.status(200).json(results.rows);
+    });
 };
 
+// REPLACE OTHERS WITH QUERIES
 const getRecipeById = (request, response) => {
   response.status(200).json(inMemoryRecipes[0]);
 };

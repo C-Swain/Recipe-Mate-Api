@@ -10,19 +10,6 @@ VALUES ('Breakfast', True),
 ('Personal Care', False),
 ('Other', False);
 
--- CREATE TABLE recipes (
---   id SERIAL PRIMARY KEY NOT NULL,
---   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
---   name VARCHAR(255) NOT NULL,
---   category INTEGER REFERENCES categories(id) ON DELETE CASCADE,
---   description VARCHAR(255),
---   ingredients TEXT,
---   steps TEXT,
---   servings VARCHAR(255),
---   time INTEGER,
---   likes INTEGER
--- );
-
 INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time, likes)
 VALUES (1, 'Vegan Fish and Chips', 3, 'This is the best Vegan Fish','Celeriac, batter', '1: Slice up Celeriac. 2: Bake in oven on 200 until soft 3:fry', '2 people', 60, 140),
 (2, 'Cereal', 1, 'a breakfast favourite', 'Cereal, Milk', '1: Pour your favourite cereal into a bowl, 2: add milk 3: Finnish with spoon','1 person', 1, 54);
