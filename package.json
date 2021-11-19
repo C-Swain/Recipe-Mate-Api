@@ -4,7 +4,7 @@
   "description": "an api for recipes",
   "main": "app.js",
   "scripts": {
-    "serve": "nodemon app.js"
+    "start": "nodemon app.js"
   },
   "author": "Ana Carolina K, Gloria Joan Lai & Catherine Swain",
   "license": "ISC",
