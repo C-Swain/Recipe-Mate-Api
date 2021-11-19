@@ -5,6 +5,7 @@ const inMemoryRecipes = [
     name: "toast toast",
     category: "breakfast",
     description: "very tasty",
+    ingredients: "bread",
     steps: "put in toaster",
     servings: "1 person",
     time: 5,
@@ -16,6 +17,7 @@ const inMemoryRecipes = [
     name: "cereal",
     category: "breakfast",
     description: "easy food",
+    ingredients: " cereal , milk",
     steps: "get bowl, pour cereal , add milk . do not put in toaster",
     servings: "1 person",
     time: 5,
@@ -27,6 +29,7 @@ const inMemoryRecipes = [
     name: "Peanut-butter and jam sandwich",
     category: "breakfast",
     description: "very tasty",
+    ingredients: " bread, peanut-butter , jam"
     steps: "peanut butter jelly time",
     servings: "100 people",
     time: 5,

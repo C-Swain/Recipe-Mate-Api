@@ -22,10 +22,11 @@ CREATE TABLE recipes (
   name VARCHAR(255) NOT NULL,
   category INTEGER REFERENCES categories(id) ON DELETE CASCADE,
   description VARCHAR(255),
+  ingregients TEXT,
   steps TEXT,
   servings VARCHAR(255),
   time INTEGER,
-  link INTEGER
+  likes INTEGER,
 );
 
 CREATE TABLE comments (

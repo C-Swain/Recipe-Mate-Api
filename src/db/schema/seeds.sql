@@ -10,9 +10,9 @@ VALUES ('Breakfast', True),
 ('Personal Care', False)
 ('Other', False);
 ,
-INSERT INTO recipes (user_id, name, category, description, steps, servings, time, likes)
-VALUES (1, "Vegan Fish and Chips", 3, "This is the best Vegan Fish", "1: Slice up Celeriac. 2: Bake in oven on 200 until soft 3: once cooked peels the skin off and coat the celeriac pieces with lemon zest and lemon juice. 4: batter with your favourite batter. 5: Fry until Golden Brown", "2 people", 60, 140)
-(2, "Cereal", 1, "a breakfast favourite", "1: Pour your favourite cereal into a bowl, 2: add milk 3: Finnish with spoon", 1, 54 )
+INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time, likes)
+VALUES (1, "Vegan Fish and Chips", 3, "This is the best Vegan Fish","Celeriac, batter", "1: Slice up Celeriac. 2: Bake in oven on 200 until soft 3: once cooked peels the skin off and coat the celeriac pieces with lemon zest and lemon juice. 4: batter with your favourite batter. 5: Fry until Golden Brown", "2 people", 60, 140)
+(2, "Cereal", 1, "a breakfast favourite","Cereal, Milk", "1: Pour your favourite cereal into a bowl, 2: add milk 3: Finnish with spoon", 1, 54 )
 
 INSERT INTO comments(recipe_id, user_id, description)
 (1, 3," I love this ! it's so good <3")
