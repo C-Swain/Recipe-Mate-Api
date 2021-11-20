@@ -1,10 +1,10 @@
 const { response } = require("express");
 const { Pool } = require("pg");
 const pool = new Pool({
-  user: 'development',
-  password: 'development',
-  host: 'localhost',
-  database: 'recipe_development'
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE
 });
 
 // const inMemoryRecipes = [
