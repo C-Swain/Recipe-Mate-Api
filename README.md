@@ -19,6 +19,8 @@ In the project files:
 3. Create a `.env` file with the correct credentials, similar to the example in `.env.development`.
 
 
+Update and go!
+
 4. Install the required packages with `npm install`.
 
 5. Run the server with `npm start`.
