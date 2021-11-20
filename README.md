@@ -16,7 +16,7 @@ In Postgres:
 
 In the project files:
 
-3. Update the `.env` file with the correct credentials, similar to the example in `.env.development`.
+3. Create a `.env` file with the correct credentials, similar to the example in `.env.development`.
 
 
 4. Install the required packages with `npm install`.
