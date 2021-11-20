@@ -18,7 +18,7 @@ app.get('/Users/:id', api.getUserById);
 app.post('/Users/', api.addUser);
 
 //favourites
-app.get('/Favourites/:userId', api.getFavouritesByUser);
+// app.get('/Favourites/:userId', api.getFavouritesByUser);
 
 
 app.listen(port, () => {

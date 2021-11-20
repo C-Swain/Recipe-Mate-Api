@@ -124,5 +124,5 @@ module.exports = {
   getAllUsers,
   getUserById,
   addUser,
-  getFavouritesByUser
+  // getFavouritesByUser
 };
