@@ -53,13 +53,17 @@ const getAllRecipes = async (request, response) => {
 
 // REPLACE OTHERS WITH QUERIES
 const getRecipeById = (request, response) => {
-  response.status(200).json(inMemoryRecipes[0]);
+  const id = parseInt(request.params.id);
+  pool.query('SELECT * FROM recipes WHERE id = $1', [id], (error, results) => {
+    response.status(200).json(results.rows);
+  });
 };
 
 const addRecipe = async (request, response) => {
   const { name, rating } = request.body;
-  inMemoryRecipes.push({ name, rating });
-  response.status(201).send(`Recipe added successfully.`);
+  pool.query('INSERT INTO recipes (name, rating) VALUES ($1, $2)', [name, rating], (error, results) => {
+    response.status(201).send(`Recipe added successfully.`);
+  });
 };
 
 const updateRecipe = (request, response) => {
