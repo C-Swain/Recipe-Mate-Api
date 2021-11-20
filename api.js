@@ -7,52 +7,30 @@ const pool = new Pool({
   database: process.env.PGDATABASE
 });
 
-// const inMemoryRecipes = [
-//   {
-//     id: 123,
-//     user_id: 456,
-//     name: 'toast toast',
-//     category: 'breakfast',
-//     description: 'very tasty',
-//     ingredients: 'bread',
-//     steps: 'put in toaster',
-//     servings: '1 person',
-//     time: 5,
-//     likes: 3
-//   },
-//   {
-//     id: 124,
-//     user_id: 457,
-//     name: 'cereal',
-//     category: 'breakfast',
-//     description: 'easy food',
-//     ingredients: ' cereal , milk',
-//     steps: 'get bowl, pour cereal , add milk . do not put in toaster',
-//     servings: '1 person',
-//     time: 5,
-//     likes: 3
-//   },
-//   {
-//     id: 129,
-//     user_id: 356,
-//     name: 'Peanut-butter and jam sandwich',
-//     category: 'breakfast',
-//     description: 'very tasty',
-//     ingredients: ' bread, peanut-butter , jam',
-//     steps: 'peanut butter jelly time',
-//     servings: '100 people',
-//     time: 5,
-//     likes: 3
-//   }
-// ];
-
 const getAllRecipes = async (request, response) => {
-    pool.query('SELECT * FROM Recipes;', (error, results) => {
+    pool.query(`SELECT * FROM recipes;`, (error, results) => {
+      if (error) { response.status(500).send("Our bad. Something went wrong!") }
       response.status(200).json(results.rows);
     });
 };
 
-// REPLACE OTHERS WITH QUERIES
+
+// The form should contain the field named "search".
+// This should work, but not tested
+const getAllRecipesFromSearch = async (request, response) => {
+  const { search } = request.body
+  pool.query(`
+  SELECT * FROM recipes 
+    WHERE ingredients LIKE '%$1%'
+      OR description LIKE '%$1%'
+      OR name LIKE '%$1%';
+  `, [search], 
+  (error, results) => {
+    if (error) { response.status(500).send("Our bad. Something went wrong!") }
+    response.status(200).json(results.rows);
+  });
+};
+
 const getRecipeById = (request, response) => {
   const id = parseInt(request.params.id);
   pool.query('SELECT * FROM recipes WHERE id = $1', [id], (error, results) => {
@@ -60,10 +38,15 @@ const getRecipeById = (request, response) => {
   });
 };
 
+// The form should contain the field named as the line in with request.body
+// This should work, but not tested
 const addRecipe = async (request, response) => {
-  const { user_id, name, category, description, ingredients, steps, servings, time} = request.body;
-  pool.query('INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [ user_id, name, category, description, ingredients, steps, servings, time], (error, results) => {
-    response.status(201).send(`Recipe added successfully.`);
+  const user_id = parseInt(request.params.id);
+  const { name, category, description, ingredients, steps, servings, time } = request.body;
+  pool.query('INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
+    [ user_id, name, category, description, ingredients, steps, servings, time], 
+    (error, results) => {
+      response.status(201).send(`Recipe added successfully.`);
   });
 };
 
@@ -100,23 +83,40 @@ const getUserById = (request, response) => {
 };
 
 const addUser = async (request, response) => {
-  const {email ,password} = request.body;
-  pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', [email, password], (error, results) => {
-    response.status(201).send(`user added successfully.`);
+  const { email, password } = request.body;
+  pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', 
+    [email, password], 
+    (error, results) => {
+      response.status(201).send(`user added successfully.`);
   });
 };
 
-//Favourites Not working
-// const getFavouritesByUser = async (request, response) => {
-//   const user = parseInt(request.params.user);
-//   pool.query('SELECT * FROM favourites WHERE user_id = $1', [user], (error, results) => {
-//     response.status(200).json(results.rows);
-//   });
-// };
-
+const getFavouritesByUser = async (request, response) => {
+  const user = parseInt(request.params.id);
+  pool.query(`
+    SELECT * FROM favourites 
+      JOIN recipes ON recipe_id = recipes.id
+      WHERE favourites.user_id = $1;
+    `, [user], 
+    (error, results) => {
+      if (error) { response.status(500).send("Our bad. Something went wrong!") }
+      response.status(200).json(results.rows);
+  });
+};
+  
+const getRecipesByUser = async (request, response) => {
+  const user = parseInt(request.params.id);
+  pool.query(`
+    SELECT * FROM recipes WHERE recipes.user_id = $1;`, [user], 
+    (error, results) => {
+      if (error) { response.status(500).send("Our bad. Something went wrong!") }
+      response.status(200).json(results.rows);
+  });
+};
 
 module.exports = {
   getAllRecipes,
+  getAllRecipesFromSearch,
   getRecipeById,
   addRecipe,
   // updateRecipe,
@@ -124,5 +124,6 @@ module.exports = {
   getAllUsers,
   getUserById,
   addUser,
-  // getFavouritesByUser
+  getFavouritesByUser,
+  getRecipesByUser
 };
