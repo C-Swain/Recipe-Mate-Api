@@ -1,6 +1,7 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 
 app.use(express.json());
 
@@ -18,7 +19,7 @@ app.get('/Users/:id', api.getUserById);
 app.post('/Users/', api.addUser);
 
 //favourites
-app.get('/Favourites/:userId', api.getFavouritesByUser);
+//app.get('/Favourites/:userId', api.getFavouritesByUser);
 
 
 app.listen(port, () => {
