@@ -51,14 +51,14 @@ const getCommentsByRecipeId = (request, response) => {
   });
 };
 
-// The form should contain the field named as the line in with request.body
-// This should work, but not tested
 const addRecipe = async (request, response) => {
   const user_id = parseInt(request.params.id);
-  const { name, category, description, ingredients, steps, servings, time, image_link } = request.body;
-  pool.query('INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time, image_link) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', 
-    [ user_id, name, category, description, ingredients, steps, servings, time, image_link], 
+  const { name, category, description, ingredients, steps, servings, time, likes, image } = request.body;
+  pool.query(`INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time, likes, image)
+   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, 
+    [ user_id, name, category, description, ingredients, steps, servings, time, likes, image], 
     (error, results) => {
+      if(error) { console.log(error)}
       response.status(201).send(`Recipe added successfully.`);
   });
 };

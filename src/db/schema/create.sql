@@ -30,7 +30,7 @@ CREATE TABLE recipes (
   servings VARCHAR(255),
   time INTEGER,
   likes INTEGER DEFAULT 0,
-  image_link TEXT
+  image TEXT
 );
 
 CREATE TABLE comments (
