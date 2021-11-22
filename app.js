@@ -17,8 +17,11 @@ app.get('/Recipes/', api.getAllRecipes);
 // Get all recipes when searching for something
 app.get('/Recipes/SearchResults', api.getAllRecipesFromSearch)
 
-// Get one specific recipe with author information
+// Get one specific recipe
 app.get('/Recipes/:id', api.getRecipeById);
+
+// Get comments for a specific recipe
+app.get('/Recipes/:id/comments', api.getCommentsByRecipeId);
 
 // app.post('/Recipes/', api.addRecipe);
 // app.put('/Recipes/:id', api.updateRecipe);
