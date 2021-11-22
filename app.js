@@ -1,11 +1,13 @@
 require('dotenv').config()
 const express = require('express');
 const bodyParser = require("body-parser");
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 const api = require('./api');
 
@@ -41,6 +43,12 @@ app.get('/users/:id/recipes', api.getRecipesByUser);
 // Add recipe (only users add recipes)
 app.post('/users/:id/recipes', api.addRecipe);
 
+//Login logic
+app.use('/login', (req, res) => {
+  res.send({
+    token: 'test123'
+  });
+});
 
 app.listen(port, () => {
   console.log(` Recipe-Mate Api is at your service ${port}.`);
