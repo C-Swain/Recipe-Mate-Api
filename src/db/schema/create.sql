@@ -29,7 +29,7 @@ CREATE TABLE recipes (
   steps TEXT,
   servings VARCHAR(255),
   time INTEGER,
-  likes INTEGER,
+  likes INTEGER DEFAULT 0,
   image_link TEXT
 );
 
