@@ -61,7 +61,7 @@ const addRecipe = async (request, response) => {
 //   const id = parseInt(request.params.id);
 //   const { name, rating } = request.body;
 //   pool.query(
-//     'UPDATE recipes SET name = $1, rating = $2 WHERE id = $3', [user_id, name, category, description, ingredients, steps, servings, time], (error, results) => {
+//     'UPDATE recipes SET name = $1, rating = $2 WHERE id = $3', [user_id, name, category, description, ingredients, steps, servings, time, image_link], (error, results) => {
 //       response.status(200).send(`recipe with id ${id} modified.`);
 //     }
 //   );
