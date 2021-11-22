@@ -33,7 +33,14 @@ const getAllRecipesFromSearch = async (request, response) => {
 
 const getRecipeById = (request, response) => {
   const id = parseInt(request.params.id);
-  pool.query('SELECT * FROM recipes WHERE id = $1', [id], (error, results) => {
+  pool.query('SELECT * FROM recipes JOIN users ON user_id = users.id WHERE recipes.id = $1;', [id], (error, results) => {
+    response.status(200).json(results.rows);
+  });
+};
+
+const getCommentsByRecipeId = (request, response) => {
+  const id = parseInt(request.params.id);
+  pool.query('SELECT * FROM comments WHERE recipe_id = $1;', [id], (error, results) => {
     response.status(200).json(results.rows);
   });
 };
@@ -118,6 +125,7 @@ module.exports = {
   getAllRecipes,
   getAllRecipesFromSearch,
   getRecipeById,
+  getCommentsByRecipeId,
   addRecipe,
   // updateRecipe,
   deleteRecipe,
