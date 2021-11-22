@@ -33,7 +33,13 @@ const getAllRecipesFromSearch = async (request, response) => {
 
 const getRecipeById = (request, response) => {
   const id = parseInt(request.params.id);
-  pool.query('SELECT * FROM recipes JOIN categories ON categories.id = category WHERE recipes.id = $1;', [id], (error, results) => {
+  pool.query(`
+    SELECT recipes.*, categories.id, categories.name AS category_name 
+      FROM recipes 
+      JOIN categories ON categories.id = category 
+      WHERE recipes.id = $1
+      ;`,
+    [id], (error, results) => {
     response.status(200).json(results.rows);
   });
 };
