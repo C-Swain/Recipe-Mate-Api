@@ -49,9 +49,9 @@ const getCommentsByRecipeId = (request, response) => {
 // This should work, but not tested
 const addRecipe = async (request, response) => {
   const user_id = parseInt(request.params.id);
-  const { name, category, description, ingredients, steps, servings, time } = request.body;
-  pool.query('INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
-    [ user_id, name, category, description, ingredients, steps, servings, time], 
+  const { name, category, description, ingredients, steps, servings, time, image_link } = request.body;
+  pool.query('INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time, image_link) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', 
+    [ user_id, name, category, description, ingredients, steps, servings, time, image_link], 
     (error, results) => {
       response.status(201).send(`Recipe added successfully.`);
   });
