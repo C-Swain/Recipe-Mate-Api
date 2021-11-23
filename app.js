@@ -17,7 +17,7 @@ const api = require('./api');
 app.get('/Recipes/', api.getAllRecipes);
 
 // Get all recipes when searching for something
-app.get('/Recipes/SearchResults', api.getAllRecipesFromSearch)
+app.get('/search_recipes', api.getRecipesWithSearch)
 
 // Get one specific recipe
 app.get('/Recipes/:id', api.getRecipeById);
@@ -29,7 +29,10 @@ app.get('/Recipes/:id/comments', api.getCommentsByRecipeId);
 // app.put('/Recipes/:id', api.updateRecipe);
 app.delete('/Recipes/:id', api.deleteRecipe);
 
-//users paths
+// Add recipe (only users add recipes)
+app.post('/users/:id/recipes', api.addRecipe);
+
+// 2. Users paths
 app.get('/Users/', api.getAllUsers);
 app.get('/Users/:id', api.getUserById);
 app.post('/Users/', api.addUser);
@@ -40,8 +43,14 @@ app.get('/users/:id/favourites', api.getFavouritesByUser);
 // Get recipes from a specific user (ex. user 1)
 app.get('/users/:id/recipes', api.getRecipesByUser);
 
-// Add recipe (only users add recipes)
-app.post('/users/:id/recipes', api.addRecipe);
+
+// 3. Categories Path
+
+app.get('categories', api.getAllCategories)
+app.get('categories/:id/recipes', api.getRecipesByCategory)
+
+
+
 
 //Login logic
 app.use('/login', (req, res) => {

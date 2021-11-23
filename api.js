@@ -8,26 +8,33 @@ const pool = new Pool({
 });
 
 const getAllRecipes = async (request, response) => {
-    pool.query(`SELECT * FROM recipes;`, (error, results) => {
+    pool.query(`
+    SELECT recipes.*, categories.id, categories.name AS category_name 
+      FROM recipes 
+      JOIN categories ON categories.id = category
+      ;`, (error, results) => {
       if (error) { response.status(500).send("Our bad. Something went wrong!") }
       response.status(200).json(results.rows);
     });
 };
 
 
-// The form should contain the field named "search".
-// This should work, but not tested
-const getAllRecipesFromSearch = async (request, response) => {
-  const { search } = request.body
+const getRecipesWithSearch = async (request, response) => {
+
+  // http://localhost:3001/search_recipes?search=Fish
+  // request.query.search  'Fish'
+
+  const search = request.query.search
   pool.query(`
   SELECT * FROM recipes 
-    WHERE ingredients LIKE '%$1%'
-      OR description LIKE '%$1%'
-      OR name LIKE '%$1%';
-  `, [search], 
+    WHERE name ILIKE $1
+    OR description ILIKE $1
+    OR ingredients ILIKE $1
+    OR steps ILIKE $1
+  ;`, [`%${search}%`], 
   (error, results) => {
     if (error) { response.status(500).send("Our bad. Something went wrong!") }
-    response.status(200).json(results.rows);
+    if (results.rows) { response.status(200).json(results.rows) }
   });
 };
 
@@ -120,7 +127,33 @@ const getFavouritesByUser = async (request, response) => {
 const getRecipesByUser = async (request, response) => {
   const user = parseInt(request.params.id);
   pool.query(`
-    SELECT * FROM recipes WHERE recipes.user_id = $1;`, [user], 
+  SELECT recipes.*, categories.id, categories.name AS category_name 
+    FROM recipes 
+    JOIN categories ON categories.id = category 
+    WHERE recipes.user_id = $1
+    ;`, [user], 
+    (error, results) => {
+      if (error) { response.status(500).send("Our bad. Something went wrong!") }
+      response.status(200).json(results.rows);
+  });
+};
+
+const getAllCategories = async (request, response) => {
+  pool.query(`SELECT * FROM categories;`, 
+    (error, results) => {
+      if (error) { response.status(500).send("Our bad. Something went wrong!") }
+      response.status(200).json(results.rows);
+  });
+};
+
+const getRecipesByCategory = async (request, response) => {
+  const category = parseInt(request.params.id);
+  pool.query(`
+  SELECT recipes.*, categories.id, categories.name AS category_name 
+    FROM recipes 
+    JOIN categories ON categories.id = category 
+    WHERE categories.id = $1
+    ;`, [category], 
     (error, results) => {
       if (error) { response.status(500).send("Our bad. Something went wrong!") }
       response.status(200).json(results.rows);
@@ -129,7 +162,7 @@ const getRecipesByUser = async (request, response) => {
 
 module.exports = {
   getAllRecipes,
-  getAllRecipesFromSearch,
+  getRecipesWithSearch,
   getRecipeById,
   getCommentsByRecipeId,
   addRecipe,
@@ -139,5 +172,7 @@ module.exports = {
   getUserById,
   addUser,
   getFavouritesByUser,
-  getRecipesByUser
+  getRecipesByUser,
+  getAllCategories,
+  getRecipesByCategory
 };
