@@ -8,7 +8,11 @@ const pool = new Pool({
 });
 
 const getAllRecipes = async (request, response) => {
-    pool.query(`SELECT * FROM recipes;`, (error, results) => {
+    pool.query(`
+    SELECT recipes.*, categories.id, categories.name AS category_name 
+      FROM recipes 
+      JOIN categories ON categories.id = category
+      ;`, (error, results) => {
       if (error) { response.status(500).send("Our bad. Something went wrong!") }
       response.status(200).json(results.rows);
     });
@@ -120,7 +124,33 @@ const getFavouritesByUser = async (request, response) => {
 const getRecipesByUser = async (request, response) => {
   const user = parseInt(request.params.id);
   pool.query(`
-    SELECT * FROM recipes WHERE recipes.user_id = $1;`, [user], 
+  SELECT recipes.*, categories.id, categories.name AS category_name 
+    FROM recipes 
+    JOIN categories ON categories.id = category 
+    WHERE recipes.user_id = $1
+    ;`, [user], 
+    (error, results) => {
+      if (error) { response.status(500).send("Our bad. Something went wrong!") }
+      response.status(200).json(results.rows);
+  });
+};
+
+const getAllCategories = async (request, response) => {
+  pool.query(`SELECT * FROM categories;`, 
+    (error, results) => {
+      if (error) { response.status(500).send("Our bad. Something went wrong!") }
+      response.status(200).json(results.rows);
+  });
+};
+
+const getRecipesByCategory = async (request, response) => {
+  const category = parseInt(request.params.id);
+  pool.query(`
+  SELECT recipes.*, categories.id, categories.name AS category_name 
+    FROM recipes 
+    JOIN categories ON categories.id = category 
+    WHERE categories.id = $1
+    ;`, [category], 
     (error, results) => {
       if (error) { response.status(500).send("Our bad. Something went wrong!") }
       response.status(200).json(results.rows);
@@ -139,5 +169,7 @@ module.exports = {
   getUserById,
   addUser,
   getFavouritesByUser,
-  getRecipesByUser
+  getRecipesByUser,
+  getAllCategories,
+  getRecipesByCategory
 };
