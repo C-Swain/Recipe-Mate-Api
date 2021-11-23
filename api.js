@@ -33,7 +33,13 @@ const getAllRecipesFromSearch = async (request, response) => {
 
 const getRecipeById = (request, response) => {
   const id = parseInt(request.params.id);
-  pool.query('SELECT * FROM recipes JOIN users ON user_id = users.id WHERE recipes.id = $1;', [id], (error, results) => {
+  pool.query(`
+    SELECT recipes.*, categories.id, categories.name AS category_name 
+      FROM recipes 
+      JOIN categories ON categories.id = category 
+      WHERE recipes.id = $1
+      ;`,
+    [id], (error, results) => {
     response.status(200).json(results.rows);
   });
 };
@@ -45,14 +51,14 @@ const getCommentsByRecipeId = (request, response) => {
   });
 };
 
-// The form should contain the field named as the line in with request.body
-// This should work, but not tested
 const addRecipe = async (request, response) => {
   const user_id = parseInt(request.params.id);
-  const { name, category, description, ingredients, steps, servings, time } = request.body;
-  pool.query('INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
-    [ user_id, name, category, description, ingredients, steps, servings, time], 
+  const { name, category, description, ingredients, steps, servings, time, likes, image } = request.body;
+  pool.query(`INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time, likes, image)
+   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, 
+    [ user_id, name, category, description, ingredients, steps, servings, time, likes, image], 
     (error, results) => {
+      if(error) { console.log(error)}
       response.status(201).send(`Recipe added successfully.`);
   });
 };
@@ -61,7 +67,7 @@ const addRecipe = async (request, response) => {
 //   const id = parseInt(request.params.id);
 //   const { name, rating } = request.body;
 //   pool.query(
-//     'UPDATE recipes SET name = $1, rating = $2 WHERE id = $3', [user_id, name, category, description, ingredients, steps, servings, time], (error, results) => {
+//     'UPDATE recipes SET name = $1, rating = $2 WHERE id = $3', [user_id, name, category, description, ingredients, steps, servings, time, image_link], (error, results) => {
 //       response.status(200).send(`recipe with id ${id} modified.`);
 //     }
 //   );

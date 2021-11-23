@@ -10,7 +10,7 @@ It was built using PostgreSQL as database.
 
 1. Create a database `recipe_development`, or any other name specified for `PGDATABASE` in `.env` file.
 
-2. Run the `create.js` and `seeds.js` files, located in `./src/db/schema`.
+2. Run the `create.sql` and `seeds.sql` files, located in `./src/db/schema`.
 
 
 ### In the project files:
