@@ -17,7 +17,7 @@ const api = require('./api');
 app.get('/Recipes/', api.getAllRecipes);
 
 // Get all recipes when searching for something
-app.get('/Recipes/SearchResults', api.getAllRecipesFromSearch)
+app.get('/search_recipes', api.getRecipesWithSearch)
 
 // Get one specific recipe
 app.get('/Recipes/:id', api.getRecipeById);
