@@ -27,16 +27,14 @@ const getRecipesWithSearch = async (request, response) => {
   const search = request.query.search
   pool.query(`
   SELECT * FROM recipes 
-    WHERE name LIKE $1
-    OR description LIKE $1
-    OR ingredients LIKE $1
-    OR steps LIKE $1
+    WHERE name ILIKE $1
+    OR description ILIKE $1
+    OR ingredients ILIKE $1
+    OR steps ILIKE $1
   ;`, [`%${search}%`], 
   (error, results) => {
     if (error) { response.status(500).send("Our bad. Something went wrong!") }
-    if (results) {
-      response.status(200).json(results.rows);
-    } else { "No crash, but no cash." }
+    if (results.rows) { response.status(200).json(results.rows) }
   });
 };
 
