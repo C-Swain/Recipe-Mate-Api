@@ -153,7 +153,7 @@ const getAllCategories = async (request, response) => {
 const getRecipesByCategory = async (request, response) => {
   const category = parseInt(request.params.id);
   pool.query(`
-  SELECT recipes.*, categories.id, categories.name AS category_name 
+  SELECT recipes.*, categories.id as category_id, categories.name AS category_name 
     FROM recipes 
     JOIN categories ON categories.id = category 
     WHERE categories.id = $1

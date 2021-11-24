@@ -46,8 +46,8 @@ app.get('/users/:id/recipes', api.getRecipesByUser);
 
 // 3. Categories Path
 
-app.get('categories', api.getAllCategories)
-app.get('categories/:id/recipes', api.getRecipesByCategory)
+app.get('/categories', api.getAllCategories)
+app.get('/categories/:id/recipes', api.getRecipesByCategory)
 
 
 
