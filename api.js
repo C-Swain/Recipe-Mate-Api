@@ -115,6 +115,17 @@ const addUser = async (request, response) => {
   });
 };
 
+const addComment = async (request, response) => {
+  const { recipe_id, user_id, description} = request.body;
+  pool.query(`INSERT INTO comments (recipe_id, user_id) VALUES ($1, $2) RETURNING *`, 
+    [recipe_id, user_id, description], 
+    (error, results) => {
+      if(error) { console.log(error)}
+      console.log('results', results.rows)
+      res.sendStatus(200).json(results.rows);
+      
+  });
+};
 const getFavouritesByUser = async (request, response) => {
   const user = parseInt(request.params.id);
   pool.query(`
@@ -171,6 +182,7 @@ module.exports = {
   getCommentsByRecipeId,
   addRecipe,
   // updateRecipe,
+  addComment,
   deleteRecipe,
   getAllUsers,
   getUserById,
