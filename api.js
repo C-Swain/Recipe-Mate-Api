@@ -117,7 +117,7 @@ const addUser = async (request, response) => {
 
 const addComment = async (request, response) => {
   const { recipe_id, user_id, description} = request.body;
-  pool.query(`INSERT INTO comments (recipe_id, user_id) VALUES ($1, $2) RETURNING *`, 
+  pool.query(`INSERT INTO comments (recipe_id, user_id, description) VALUES ($1, $2, $3) RETURNING *`, 
     [recipe_id, user_id, description], 
     (error, results) => {
       if(error) { console.log(error)}
