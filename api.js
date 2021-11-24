@@ -59,10 +59,11 @@ const getCommentsByRecipeId = (request, response) => {
 };
 
 const addRecipe = async (request, response) => {
+  console.log('request.body', request.body)
   const user_id = parseInt(request.params.id);
   const { name, category, description, ingredients, steps, servings, time, likes, image } = request.body;
   pool.query(`INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time, likes, image)
-   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, 
+   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`, 
     [ user_id, name, category, description, ingredients, steps, servings, time, likes, image], 
     (error, results) => {
       if(error) { console.log(error)}
@@ -104,7 +105,7 @@ const getUserById = (request, response) => {
 
 const addUser = async (request, response) => {
   const { email, password } = request.body;
-  pool.query(`INSERT INTO users (email, password) VALUES ($1, $2)`, 
+  pool.query(`INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *`, 
     [email, password], 
     (error, results) => {
       if(error) { console.log(error)}
