@@ -109,7 +109,9 @@ const addUser = async (request, response) => {
     [email, password], 
     (error, results) => {
       if(error) { console.log(error)}
-      response.status(201).send(`user added successfully.`);
+      console.log('results', results.rows)
+      // res.sendStatus(status);
+      response.json(results.rows[0].id);
   });
 };
 
