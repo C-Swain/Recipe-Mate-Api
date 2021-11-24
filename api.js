@@ -104,9 +104,10 @@ const getUserById = (request, response) => {
 
 const addUser = async (request, response) => {
   const { email, password } = request.body;
-  pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', 
+  pool.query(`INSERT INTO users (email, password) VALUES ($1, $2)`, 
     [email, password], 
     (error, results) => {
+      if(error) { console.log(error)}
       response.status(201).send(`user added successfully.`);
   });
 };

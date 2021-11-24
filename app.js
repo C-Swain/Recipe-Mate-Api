@@ -53,11 +53,11 @@ app.get('categories/:id/recipes', api.getRecipesByCategory)
 
 
 //Login logic
-app.use('/login', (req, res) => {
-  res.send({
-    token: 'test123'
-  });
-});
+// app.use('/login', (req, res) => {
+//   res.send({
+//     token: 'test123'
+//   });
+// });
  
 app.listen(port, () => {
   console.log(` Recipe-Mate Api is at your service ${port}.`);
