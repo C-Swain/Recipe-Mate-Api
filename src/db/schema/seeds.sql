@@ -13,7 +13,7 @@ VALUES ('Breakfast', True),
 ('Kids', False),
 ('Other', True);
 
-INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time, likes, image)
+INSERT INTO recipes (user_id, name, category_id, description, ingredients, steps, servings, time, likes, image)
 VALUES (1, 'Vegan Fish and Chips', 3, 'This is the best Vegan Fish','Celeriac, batter', '1: Slice up Celeriac. 2: Bake in oven on 200 until soft 3:fry', '2 people', 60, 140,'https://i.imgur.com/QZ13zIO.png'),
 (2, 'Cereal', 1, 'a breakfast favourite', 'Cereal, Milk', '1: Pour your favourite cereal into a bowl, 2: add milk 3: Finnish with spoon','1 person', 1, 54, 'https://i.imgur.com/GN4U4Ry.png'),
 (2, 'Simple French Toast', 1, 'It is a simple french toast. Simple. Not french necessarily, will depend of where you are when you prepare the toast. And, for sure, a toast.', '1 or more Sliced bread, Some: Vanilla , Butter , Eggs and Maple syrup', 'Mix 3 eggs with one tsp vanilla. Then soak the bread in the mixture. Pan fry the bread in butter until golden, top with maple syrup.', 'One person', 15, 1242, 'https://i.imgur.com/mUDVph0.png'),

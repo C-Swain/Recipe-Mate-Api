@@ -9,15 +9,14 @@ const pool = new Pool({
 
 const getAllRecipes = async (request, response) => {
     pool.query(`
-    SELECT recipes.*, categories.id, categories.name AS category_name 
-      FROM recipes 
-      JOIN categories ON categories.id = category
+    Select recipes.* , categories.name
+ From recipes
+ JOIN categories on categories.id = recipes.category_id
       ;`, (error, results) => {
       if (error) { response.status(500).send("Our bad. Something went wrong!") }
       response.status(200).json(results.rows);
     });
 };
-
 
 const getRecipesWithSearch = async (request, response) => {
 
@@ -41,12 +40,13 @@ const getRecipesWithSearch = async (request, response) => {
 const getRecipeById = (request, response) => {
   const id = parseInt(request.params.id);
   pool.query(`
-    SELECT recipes.*, categories.id, categories.name AS category_name 
+    SELECT recipes.*, categories.name AS category_name 
       FROM recipes 
-      JOIN categories ON categories.id = category 
+      JOIN categories ON categories.id = recipes.category_id 
       WHERE recipes.id = $1
       ;`,
     [id], (error, results) => {
+    if (error) { response.status(500).send("Our bad. Something went wrong!") } 
     response.status(200).json(results.rows);
   });
 };
@@ -62,7 +62,7 @@ const addRecipe = async (request, response) => {
   console.log('request.body', request.body)
   const user_id = parseInt(request.params.id);
   const { name, category, description, ingredients, steps, servings, time, likes, image } = request.body;
-  pool.query(`INSERT INTO recipes (user_id, name, category, description, ingredients, steps, servings, time, likes, image)
+  pool.query(`INSERT INTO recipes (user_id, name, category_id, description, ingredients, steps, servings, time, likes, image)
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`, 
     [ user_id, name, category, description, ingredients, steps, servings, time, likes, image], 
     (error, results) => {
@@ -144,9 +144,9 @@ const getFavouritesByUser = async (request, response) => {
 const getRecipesByUser = async (request, response) => {
   const user = parseInt(request.params.id);
   pool.query(`
-  SELECT recipes.*, categories.id, categories.name AS category_name 
-    FROM recipes 
-    JOIN categories ON categories.id = category 
+  Select recipes.* , categories.name As category_name
+ From recipes
+ JOIN categories on categories.id = recipes.category_id 
     WHERE recipes.user_id = $1
     ;`, [user], 
     (error, results) => {
@@ -166,9 +166,9 @@ const getAllCategories = async (request, response) => {
 const getRecipesByCategory = async (request, response) => {
   const category = parseInt(request.params.id);
   pool.query(`
-  SELECT recipes.*, categories.id as category_id, categories.name AS category_name 
-    FROM recipes 
-    JOIN categories ON categories.id = category 
+  Select recipes.* , categories.name As category_name
+  From recipes
+  JOIN categories on categories.id = recipes.category_id
     WHERE categories.id = $1
     ;`, [category], 
     (error, results) => {
