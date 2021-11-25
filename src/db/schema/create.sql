@@ -23,7 +23,7 @@ CREATE TABLE recipes (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   name VARCHAR(255) NOT NULL,
-  category INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
   description VARCHAR(255),
   ingredients TEXT,
   steps TEXT,
