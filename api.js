@@ -111,7 +111,7 @@ const addUser = async (request, response) => {
       if(error) { console.log(error)}
       console.log('results', results.rows)
       // res.sendStatus(status);
-      response.json(results.rows[0].id);
+      
   });
 };
 
@@ -122,10 +122,11 @@ const addComment = async (request, response) => {
     (error, results) => {
       if(error) { console.log(error)}
       console.log('results', results.rows)
-      res.sendStatus(200).json(results.rows);
+      response.json(results.rows);
       
   });
 };
+
 const getFavouritesByUser = async (request, response) => {
   const user = parseInt(request.params.id);
   pool.query(`
