@@ -9,7 +9,7 @@ const pool = new Pool({
 
 const getAllRecipes = async (request, response) => {
     pool.query(`
-    Select recipes.* , categories.name
+    Select recipes.* , categories.name As catergory_name
  From recipes
  JOIN categories on categories.id = recipes.category_id
       ;`, (error, results) => {
