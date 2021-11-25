@@ -111,6 +111,7 @@ const addUser = async (request, response) => {
       if(error) { console.log(error)}
       console.log('results', results.rows)
       // res.sendStatus(status);
+    response.json(results.rows[0].id);
       
   });
 };
