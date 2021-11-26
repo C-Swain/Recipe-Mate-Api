@@ -9,7 +9,7 @@ const pool = new Pool({
 
 const getAllRecipes = async (request, response) => {
     pool.query(`
-    Select recipes.* , categories.name As catergory_name
+    Select recipes.* , categories.name As category_name
  From recipes
  JOIN categories on categories.id = recipes.category_id
       ;`, (error, results) => {
@@ -25,15 +25,18 @@ const getRecipesWithSearch = async (request, response) => {
 
   const search = request.query.search
   pool.query(`
-  SELECT * FROM recipes 
-    WHERE name ILIKE $1
+  SELECT recipes.*, categories.name AS category_name
+    FROM recipes 
+    JOIN categories ON categories.id = recipes.category_id
+    WHERE recipes.name ILIKE $1
     OR description ILIKE $1
     OR ingredients ILIKE $1
     OR steps ILIKE $1
   ;`, [`%${search}%`], 
   (error, results) => {
-    if (error) { response.status(500).send("Our bad. Something went wrong!") }
-    if (results.rows) { response.status(200).json(results.rows) }
+    if (error) { response.status(500).send("Our bad. Something went wrong!") 
+  } else { 
+    response.status(200).json(results.rows) }
   });
 };
 
