@@ -56,7 +56,7 @@ const getRecipeById = (request, response) => {
 
 const getCommentsByRecipeId = (request, response) => {
   const id = parseInt(request.params.id);
-  pool.query('SELECT * FROM comments WHERE recipe_id = $1;', [id], (error, results) => {
+  pool.query('SELECT * FROM comments WHERE recipe_id = $1 Order by id;', [id], (error, results) => {
     response.status(200).json(results.rows);
   });
 };
