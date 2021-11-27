@@ -69,7 +69,7 @@ const addRecipe = async (request, response) => {
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`, 
     [ user_id, name, category, description, ingredients, steps, servings, time, likes, image], 
     (error, results) => {
-      
+      if(error) { console.log(error)}
       response.status(201).send(`Recipe added successfully.`);
   });
 };
