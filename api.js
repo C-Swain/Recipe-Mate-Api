@@ -79,8 +79,8 @@ const updateRecipe = (request, response) => {
   const id = parseInt(request.params.id);
   const { name, category_id, description, ingredients, steps, servings, time, image  } = request.body;
   pool.query(
-    'UPDATE recipes SET name = $2, category_id = $3, description = $4, ingredients = $5, steps = $6,  servings = $7, time = $8, image = $9 WHERE id = $1',
-     [ name, category_id, description, ingredients, steps, servings, time, image], (error, results) => {
+    'UPDATE recipes SET name = $2, category_id = $3, description = $4, ingredients = $5, steps = $6,  servings = $7, time = $8, likes = $9, image = $10 WHERE id = $1',
+     [ name, category_id, description, ingredients, steps, servings, time, likes, image], (error, results) => {
       if(error) { console.log(error)}
       response.status(200).send(`recipe with id ${id} modified.`);
     }
