@@ -35,6 +35,9 @@ app.delete('/Recipes/:id', api.deleteRecipe);
 // Add recipe (only users add recipes)
 app.post('/users/:id/recipes', api.addRecipe);
 
+// only users can modifidy recipes 
+app.put('/users/:id/recipes', api.updateRecipe)
+
 // 2. Users paths
 app.get('/Users/', api.getAllUsers);
 app.get('/Users/:id', api.getUserById);
