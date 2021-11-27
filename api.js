@@ -69,20 +69,23 @@ const addRecipe = async (request, response) => {
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`, 
     [ user_id, name, category, description, ingredients, steps, servings, time, likes, image], 
     (error, results) => {
-      if(error) { console.log(error)}
+      
       response.status(201).send(`Recipe added successfully.`);
   });
 };
 
-// const updateRecipe = (request, response) => {
-//   const id = parseInt(request.params.id);
-//   const { name, rating } = request.body;
-//   pool.query(
-//     'UPDATE recipes SET name = $1, rating = $2 WHERE id = $3', [user_id, name, category, description, ingredients, steps, servings, time, image_link], (error, results) => {
-//       response.status(200).send(`recipe with id ${id} modified.`);
-//     }
-//   );
-// };
+// recipe id user id and likes are not to be manipulated by this function
+const updateRecipe = (request, response) => {
+  const id = parseInt(request.params.id);
+  const { name, category_id, description, ingredients, steps, servings, time, image  } = request.body;
+  pool.query(
+    'UPDATE recipes SET name = $2, category_id = $3,description = $4, ingredients = $5, steps = $6,  servings = $7, time = $8, image = $9 WHERE id = $1',
+     [ name, category_id, description, ingredients, steps, servings, time, image], (error, results) => {
+      if(error) { console.log(error)}
+      response.status(200).send(`recipe with id ${id} modified.`);
+    }
+  );
+};
 
 const deleteRecipe = (request, response) => {
   const id = parseInt(request.params.id);
@@ -186,7 +189,7 @@ module.exports = {
   getRecipeById,
   getCommentsByRecipeId,
   addRecipe,
-  // updateRecipe,
+  updateRecipe,
   addComment,
   deleteRecipe,
   getAllUsers,
