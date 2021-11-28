@@ -28,6 +28,9 @@ app.get('/Recipes/:id/comments', api.getCommentsByRecipeId);
 // Add comments for a specific recipe
 app.post('/Recipes/:id/comments', api.addComment);
 
+// Update likes for a specific recipe
+app.put('/Recipes/:id/likes', api.updateLikes);
+
 // app.post('/Recipes/', api.addRecipe);
 // app.put('/Recipes/:id', api.updateRecipe);
 app.delete('/Recipes/:id', api.deleteRecipe);

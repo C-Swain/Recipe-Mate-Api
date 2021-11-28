@@ -67,6 +67,14 @@ const getCommentsByRecipeId = (request, response) => {
   });
 };
 
+const updateLikes = (request, response) => {
+  const id = parseInt(request.params.id);
+  const { likes } = request.body;
+  pool.query('UPDATE recipes SET likes = $1 WHERE id = $2', [ likes, id ], 
+    (error, results) => { if (error) { console.log(error) } }
+  );
+};
+
 const addRecipe = async (request, response) => {
   console.log('request.body', request.body)
   const user_id = parseInt(request.params.id);
@@ -194,6 +202,7 @@ module.exports = {
   getRecipesWithSearch,
   getRecipeById,
   getCommentsByRecipeId,
+  updateLikes,
   addRecipe,
   updateRecipe,
   addComment,
