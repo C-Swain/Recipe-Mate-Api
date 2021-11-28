@@ -56,9 +56,23 @@ const getRecipeById = (request, response) => {
 
 const getCommentsByRecipeId = (request, response) => {
   const id = parseInt(request.params.id);
-  pool.query('SELECT * FROM comments WHERE recipe_id = $1 Order by id desc;', [id], (error, results) => {
+  pool.query(`
+    SELECT comments.*, email AS user_email
+      FROM comments 
+      JOIN users ON comments.user_id = users.id 
+      WHERE recipe_id = $1 
+      ORDER BY comments.id DESC
+    ;`, [id], (error, results) => {
     response.status(200).json(results.rows);
   });
+};
+
+const updateLikes = (request, response) => {
+  const id = parseInt(request.params.id);
+  const { likes } = request.body;
+  pool.query('UPDATE recipes SET likes = $1 WHERE id = $2', [ likes, id ], 
+    (error, results) => { if (error) { console.log(error) } }
+  );
 };
 
 const addRecipe = async (request, response) => {
@@ -189,6 +203,7 @@ module.exports = {
   getRecipesWithSearch,
   getRecipeById,
   getCommentsByRecipeId,
+  updateLikes,
   addRecipe,
   updateRecipe,
   addComment,
