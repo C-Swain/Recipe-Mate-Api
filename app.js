@@ -30,7 +30,7 @@ app.post('/Recipes/:id/comments', api.addComment);
 
 // app.post('/Recipes/', api.addRecipe);
 // app.put('/Recipes/:id', api.updateRecipe);
-app.post('/Recipes/:id', api.deleteRecipe);
+app.delete('/Recipes/:id', api.deleteRecipe);
 
 // Add recipe (only users add recipes)
 app.post('/users/:id/recipes', api.addRecipe);

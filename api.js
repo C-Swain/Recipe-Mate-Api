@@ -88,7 +88,7 @@ const updateRecipe = (request, response) => {
 };
 
 const deleteRecipe = (request, response) => {
-  const id = request.body.id;
+  const id = request.params.id;
   pool.query('DELETE FROM recipes WHERE id = $1;', [id], (error, results) => {
     if(error) { console.log(error)}
     response.status(200).send(`recipe with id ${id} deleted.`);
