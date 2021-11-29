@@ -23,3 +23,28 @@ It was built using PostgreSQL as database.
 4. Install the required packages with `npm install`.
 
 5. Run the server with `npm start`.
+
+### Tech Stack 
+
+ #### Express.js      http://expressjs.com/
+ #### Nodemon         https://www.npmjs.com/package/nodemon
+ #### Node.js         https://nodejs.org/en/
+ #### Postgres SQL    https://www.postgresql.org/
+
+
+ ## Thank you for your interest in our project
+
+
+This project was made with love as a final project for our Lighthouse Labs Web Development-Bootcamp. 
+We came together over a passion of food, creating and coding. We were driven to make something fun and beautiful to use. The Vision is to get people sharing ideas of a platform that embraces creativity and Innovation. 
+
+![registration](https://github.com/hlai16/Recipe-Mate---LHL-Final/blob/master/screenshots/Register.png)
+
+### Coded by 
+
+#### Ana Carolina Kolozsvari -  https://github.com/anacko
+
+#### Catherine Swain -          https://github.com/C-Swain
+
+#### Joan Gloria Lai -          https://github.com/hlai16
+
