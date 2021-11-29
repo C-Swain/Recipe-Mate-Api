@@ -26,9 +26,11 @@ It was built using PostgreSQL as database.
 
 ### Tech Stack 
 
- #### Postgres SQL    https://www.postgresql.org/
+ #### Express.js      http://expressjs.com/
  #### Nodemon         https://www.npmjs.com/package/nodemon
  #### node.js         https://nodejs.org/en/
+ #### Postgres SQL    https://www.postgresql.org/
+
 
  ## Thank you for your interest in our project
 
