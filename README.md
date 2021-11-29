@@ -28,7 +28,7 @@ It was built using PostgreSQL as database.
 
  #### Express.js      http://expressjs.com/
  #### Nodemon         https://www.npmjs.com/package/nodemon
- #### node.js         https://nodejs.org/en/
+ #### Node.js         https://nodejs.org/en/
  #### Postgres SQL    https://www.postgresql.org/
 
 
