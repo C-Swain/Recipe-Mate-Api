@@ -76,27 +76,31 @@ const updateLikes = (request, response) => {
 };
 
 const addRecipe = async (request, response) => {
-  console.log('request.body', request.body)
   const user_id = parseInt(request.params.id);
   const { name, category, description, ingredients, steps, servings, time, likes, image } = request.body;
   pool.query(`INSERT INTO recipes (user_id, name, category_id, description, ingredients, steps, servings, time, likes, image)
    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`, 
     [ user_id, name, category, description, ingredients, steps, servings, time, likes, image], 
     (error, results) => {
-      if(error) { console.log(error)}
-      response.status(201).send(`Recipe added successfully.`);
+      if (error) { response.json(0);
+      } else { response.json(results.rows[0].id); }
   });
 };
 
 // recipe id user id and likes are not to be manipulated by this function
 const updateRecipe = (request, response) => {
   const id = parseInt(request.params.id);
-  const { name, category_id, description, ingredients, steps, servings, time, image  } = request.body;
+  const { recipe_id, name, category, description, ingredients, steps, servings, time, likes, image  } = request.body;
   pool.query(
-    'UPDATE recipes SET name = $2, category_id = $3, description = $4, ingredients = $5, steps = $6,  servings = $7, time = $8, likes = $9, image = $10 WHERE id = $1',
-     [ name, category_id, description, ingredients, steps, servings, time, likes, image], (error, results) => {
-      if(error) { console.log(error)}
-      response.status(200).send(`recipe with id ${id} modified.`);
+    `UPDATE recipes 
+      SET name = $2, category_id = $3, description = $4, ingredients = $5, steps = $6, 
+          servings = $7, time = $8, likes = $9, image = $10 
+      WHERE id = $1 
+      RETURNING id
+    ;`,
+     [ recipe_id, name, category, description, ingredients, steps, servings, time, likes, image], (error, results) => {
+      if(error) { response.json(0);
+      } else { response.json(results.rows[0].id); }      
     }
   );
 };
