@@ -49,8 +49,8 @@ const getRecipeById = (request, response) => {
       WHERE recipes.id = $1
       ;`,
     [id], (error, results) => {
-    if (error) { response.status(500).send("Our bad. Something went wrong!") } 
-    response.status(200).json(results.rows);
+    if (error) { response.status(500).send("Our bad. Something went wrong!") 
+  } else { response.status(200).json(results.rows); } 
   });
 };
 
