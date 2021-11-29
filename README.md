@@ -26,9 +26,9 @@ It was built using PostgreSQL as database.
 
 ### Tech Stack 
 
- Postgres SQL    https://www.postgresql.org/
- Nodemon         https://www.npmjs.com/package/nodemon
- Node.js         https://nodejs.org/en/
+ #### Postgres SQL    https://www.postgresql.org/
+ #### Nodemon         https://www.npmjs.com/package/nodemon
+ #### node.js         https://nodejs.org/en/
 
  ## Thank you for your interest in our project
 
@@ -38,10 +38,11 @@ We came together over a passion of food, creating and coding. We were driven to 
 
 ![registration](https://github.com/hlai16/Recipe-Mate---LHL-Final/blob/master/screenshots/Register.png)
 
-Coded by 
-Ana Carolina Kolozsvari -  https://github.com/anacko
+### Coded by 
 
-Catherine Swain -          https://github.com/C-Swain
+#### Ana Carolina Kolozsvari -  https://github.com/anacko
 
-Joan Gloria Lai -          https://github.com/hlai16
+#### Catherine Swain -          https://github.com/C-Swain
+
+#### Joan Gloria Lai -          https://github.com/hlai16
 
